@@ -12,14 +12,16 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Food {
-@Id@GeneratedValue(strategy = GenerationType.UUID)
+@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private String decription;
     private String image;
     private Integer price;
 
     public Food(FoodRequestDTO data){
         this.title = data.title();
+        this.decription = data.description();
         this.image = data.image();
         this.price = data.price();
     }
