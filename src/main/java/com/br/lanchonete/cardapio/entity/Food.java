@@ -24,22 +24,31 @@ public class Food {
 
      private Integer price;
 
+     private Integer quantity;
+
     public Food(FoodRequestDTO data){
         this.title = data.title();
         this.description = data.description();
         this.image = data.image();
         this.price = data.price();
+        this.quantity = data.quantity();
     }
 
     public void updateFood(FoodRequestDTO data){
         if (data != null){
             this.title = data.title();
-        }if (data != null){
+        }
+        if (data != null){
             this.description = data.description();
-        }if (data != null){
+        }
+        if (data != null){
             this.image = data.image();
-        }if (data != null){
+        }
+        if (data != null){
             this.price = data.price();
+        }
+        if (data!= null) {
+            this.quantity = data.quantity();
         }
     }
 }
