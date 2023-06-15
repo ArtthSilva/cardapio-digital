@@ -4,6 +4,9 @@ import com.br.lanchonete.cardapio.dtos.FoodRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @Table(name = "foods")
 @Entity(name = "foods")
 @Getter
@@ -12,9 +15,10 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Food {
+    private static final long serialVersionUID  = 1L;
 
-@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Id@GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
      private String title;
 
@@ -22,7 +26,7 @@ public class Food {
 
     private String image;
 
-     private Integer price;
+     private BigDecimal price;
 
      private Integer quantity;
 
