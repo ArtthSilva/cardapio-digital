@@ -1,5 +1,4 @@
 package com.br.lanchonete.cardapio.controllers;
-
 import com.br.lanchonete.cardapio.dtos.FoodResponseDTO;
 import com.br.lanchonete.cardapio.entity.Food;
 import com.br.lanchonete.cardapio.repository.FoodRepository;
@@ -9,14 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
-
 @RestController
  public class FoodController {
-
     @Autowired
     private FoodRepository repository;
     @Autowired
@@ -48,5 +44,4 @@ import java.util.UUID;
                                              @RequestBody @Valid FoodResponseDTO foodResponseDTO){
          return service.deleteFood(id, foodResponseDTO);
     }
-
 }
