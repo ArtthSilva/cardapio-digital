@@ -1,46 +1,48 @@
 package com.br.lanchonete.cardapio.controllers;
-import com.br.lanchonete.cardapio.dtos.StoresRequestDTO;
 import com.br.lanchonete.cardapio.dtos.StoresResponseDTO;
-
 import com.br.lanchonete.cardapio.entity.Stores;
 import com.br.lanchonete.cardapio.repository.StoresRepository;
-import jakarta.transaction.Transactional;
+import com.br.lanchonete.cardapio.services.StoresService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("store")
 public class StoresController {
 
     @Autowired
-    StoresRepository repository;
+    private StoresRepository repository;
+    @Autowired
+    private StoresService service;
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping
-    public void saveStore(@RequestBody StoresRequestDTO data){
-        Stores storeData = new Stores(data);
-        repository.save(storeData);
+    @PostMapping("/stores")
+    public ResponseEntity<Stores> postStores(@RequestBody @Valid StoresResponseDTO data){
+        return service.saveStore(data);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping
-    public List<StoresResponseDTO> getAll(){
-        List<StoresResponseDTO> storesList = repository.findAll().stream().map(StoresResponseDTO::new).toList();
-        return storesList;
+    @GetMapping("/stores")
+    public ResponseEntity<List<Stores>> getAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(repository.findAll());
     }
 
-    @PutMapping
-    @Transactional
-    public void updateStore(@RequestBody StoresRequestDTO data){
-        var store = repository.getReferenceById(data.id());
-        store.updateStore(data);
+    @GetMapping("/stores/{id}")
+    public ResponseEntity <Object> getOneStore(@PathVariable(value ="id") UUID id){
+        return service.getOneStore(id);
     }
 
-    @DeleteMapping("/{id}")
-    @Transactional
-    public void removeStore(@PathVariable Long id) {
-        repository.deleteById(id);
+    @PutMapping("/stores/{id}")
+    public ResponseEntity<Object> updateStore(@PathVariable(value = "id")UUID id,
+                                             @RequestBody @Valid StoresResponseDTO storeResponseDTO){
+        return service.updateStore(id, storeResponseDTO);
+    }
+
+    @DeleteMapping("/stores/{id}")
+    public ResponseEntity<Object> deleteStore(@PathVariable(value = "id")UUID id,
+                                             @RequestBody @Valid StoresResponseDTO storeResponseDTO){
+        return service.deleteStore(id, storeResponseDTO);
     }
 }

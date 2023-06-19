@@ -1,4 +1,6 @@
 package com.br.lanchonete.cardapio.dtos;
 
-public record StoresRequestDTO(Long id, String name, String place, String contact) {
+import java.util.UUID;
+
+public record StoresRequestDTO(UUID id, String name, String place, String contact) {
 }
