@@ -1,4 +1,5 @@
 package com.br.lanchonete.cardapio.entity;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,6 +24,8 @@ public class Food implements Serializable {
      private BigDecimal price;
 
      private Integer quantity;
+    @JsonView(Views.TypeOnly.class)
+     private String type;
 
 //    public Food(FoodRequestDTO data){
 //        this.title = data.title();
@@ -51,6 +54,10 @@ public class Food implements Serializable {
 //    }
 
 
+    public Food(String type) {
+        this.type = type;
+    }
+
     public UUID getId() {
         return id;
     }
@@ -75,6 +82,10 @@ public class Food implements Serializable {
         return quantity;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -93,6 +104,10 @@ public class Food implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Food() {
