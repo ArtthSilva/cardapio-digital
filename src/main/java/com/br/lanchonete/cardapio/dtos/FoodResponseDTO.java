@@ -7,8 +7,9 @@ import java.util.UUID;
 
 
 public record FoodResponseDTO(UUID id, @NotBlank String title, @NotBlank String description, @NotBlank String image,
-                              @NotNull BigDecimal price, @NotNull Integer quantity) {
+                              @NotNull BigDecimal price, @NotNull Integer quantity, @NotBlank String type) {
     public FoodResponseDTO(Food food){
-        this(food.getId(), food.getTitle(), food.getDescription(), food.getImage(), food.getPrice(), food.getQuantity());
+        this(food.getId(), food.getTitle(), food.getDescription(), food.getImage(),
+                food.getPrice(), food.getQuantity() , food.getType());
     }
 }
